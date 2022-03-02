@@ -1,12 +1,15 @@
 body {
-  background-color: #B9A37E;
+	background-color: #b9a37e;
 }
 
-h1{
-  color: #4e4637
+h1 {
+	color: #4e4637;
 }
 
+#Florida {
+	fill: #ffeecb;
+}
 
-#Florida{
-  fill: #FFEECB;
+a {
+	color: #4e4637;
 }
