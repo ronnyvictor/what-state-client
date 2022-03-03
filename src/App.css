@@ -6,10 +6,28 @@ h1 {
 	color: #4e4637;
 }
 
-#Florida {
-	fill: #ffeecb;
+h2 {
+	color: #4e4637;
+}
+
+p {
+	color: #4e4637;
 }
 
 a {
 	color: #4e4637;
+}
+
+.main {
+	display: flex;
+}
+
+.sider {
+	display: flex;
+	flex-direction: column;
+	width: 25%;
+}
+
+#USA_Map {
+	width: 60%;
 }
