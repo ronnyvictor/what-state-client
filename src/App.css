@@ -28,6 +28,14 @@ a {
 	width: 25%;
 }
 
+input {
+	border: 0 0 3px 0 solid #4e4637;
+	padding: 0;
+	width: 100%;
+  background-color: #b9a37e;
+}
+
 #USA_Map {
-	width: 60%;
+	width: 55%;
+	transform: translateY(-50px);
 }

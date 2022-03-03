@@ -8,9 +8,6 @@ export default function Form({ setColor, state }) {
 	const onChange = event => {
 		setAnswer(event.target.value)
 	}
-
-	// const state = { name: 'Alabama' }
-
 	const handleSubmit = event => {
 		event.preventDefault()
 		if (answer.toLowerCase() === state.name.toLowerCase()) {
@@ -29,6 +26,7 @@ export default function Form({ setColor, state }) {
 	const handleSkip = () => {
 		setAnswer('')
 		setIsCorrect(false)
+		setColor('red')
 		console.log('Incorrect!')
 		// go to new state
 	}
@@ -47,6 +45,7 @@ export default function Form({ setColor, state }) {
 			<button onClick={handleSkip}>Skip</button>
 			{(isCorrect === true) ? <StateInfo state={state} /> : <div></div> }
 			{/* <StateInfo state={state} /> */}
+			{/* {(state.id === elementId ? document.getElementById(elementId) {})} */}
 		</div>
 	)
 }

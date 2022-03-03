@@ -1,4 +1,5 @@
-export default function USAMap({ color }) {
+export default function USAMap({ color, states }) {
+	
 	return (
 		<svg
 			id='USA_Map'

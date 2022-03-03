@@ -37,7 +37,7 @@ export default function App() {
 
 	return (
 		<div className='main'>
-			<USAMap color={color} />
+			<USAMap color={color} states={states} />
 			<div className='sider'>
 				{!states ? (
 					<div></div>
