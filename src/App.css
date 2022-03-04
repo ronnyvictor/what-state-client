@@ -16,10 +16,12 @@ p {
 
 a {
 	color: #4e4637;
+  font-weight: bolder;
 }
 
 .main {
 	display: flex;
+	justify-content: space-around;
 }
 
 .sider {
@@ -29,10 +31,39 @@ a {
 }
 
 input {
-	border: 0 0 3px 0 solid #4e4637;
-	padding: 0;
+	all: unset;
+	border-bottom: 3px solid #4e4637;
 	width: 100%;
-  background-color: #b9a37e;
+	background-color: #b9a37e;
+  padding: 0 0 8px 0;
+  margin: 0 0 8px 0
+}
+
+::selection {
+  background: #4e463742;
+}
+
+input[type=text] {
+  color: #4e4637
+}
+
+::placeholder{
+  color:#4e463786
+}
+
+button {
+	background: none;
+	border: none;
+  padding: 0;
+  font: inherit;
+  font-size: inherit;
+  color: #4e4637;
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 #USA_Map {
