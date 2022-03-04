@@ -1,27 +1,44 @@
+@import url('https://use.typekit.net/vow4gnj.css');
+
 body {
 	background-color: #b9a37e;
 }
 
 h1 {
 	color: #4e4637;
+	font-family: sculpin, sans-serif;
+	font-weight: 900;
+	font-style: normal;
 }
 
 h2 {
 	color: #4e4637;
+	font-family: sculpin, sans-serif;
+	font-weight: 700;
+	font-style: normal;
 }
 
 p {
 	color: #4e4637;
+	font-family: sculpin, sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 a {
 	color: #4e4637;
-  font-weight: bolder;
+	font-weight: bolder;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: solid 1px #4e463786;
 }
 
 .main {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 }
 
 .sider {
@@ -35,35 +52,46 @@ input {
 	border-bottom: 3px solid #4e4637;
 	width: 100%;
 	background-color: #b9a37e;
-  padding: 0 0 8px 0;
-  margin: 0 0 8px 0
+	padding: 0 0 8px 0;
+	margin: 0 0 8px 0;
+  caret-color: #4e4637;
 }
 
 ::selection {
-  background: #4e463742;
+  -webkit-appearance:none;
+	background: #4e463742;
 }
 
-input[type=text] {
-  color: #4e4637
+
+input[type='text'] {
+	color: #4e4637;
+  font-family: sculpin, sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
-::placeholder{
-  color:#4e463786
+::placeholder {
+	color: #4e463786;
+	font-family: sculpin, sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 button {
 	background: none;
 	border: none;
-  padding: 0;
-  font: inherit;
-  font-size: inherit;
-  color: #4e4637;
-  text-decoration: underline;
-  font-weight: bolder;
+	padding: 0;
+	font: inherit;
+	font-size: inherit;
+	color: #4e4637;
+	text-decoration: underline;
+	font-family: sculpin, sans-serif;
+	font-weight: 700;
+	font-style: normal;
 }
 
 button:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #USA_Map {

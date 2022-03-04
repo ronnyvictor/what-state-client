@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import StateInfo from './StateInfo'
 
 export default function Form({
 	states,
@@ -8,6 +7,8 @@ export default function Form({
 	activeState,
 	setStateColor,
 	stateColor,
+	setScore,
+	score,
 }) {
 	const [answer, setAnswer] = useState('')
 	const [activeIndex, setActiveIndex] = useState(0)
@@ -21,22 +22,19 @@ export default function Form({
 		if (answer.toLowerCase() === activeState.name.toLowerCase()) {
 			setAnswer('')
 			setIsCorrect(true)
+			setScore(score + 1)
 			setStateColor({
 				...stateColor,
-				[activeState.pathId]: activeState.colors.correct,
+				[activeState.abbreviation]: activeState.colors.correct,
 			})
 			setActiveIndex(activeIndex + 1)
-			setActiveState(states[activeIndex]).then(() => {
-				setStateColor({
-					...stateColor,
-					[activeState.pathId]: activeState.colors.active,
-				})
-			})
-		} else {
+			setActiveState(states[activeIndex])
+		}
+		if (answer.toLowerCase() !== activeState.name.toLowerCase()) {
 			setIsCorrect(false)
 			setStateColor({
 				...stateColor,
-				[activeState.name]: activeState.colors.incorrect,
+				[activeState.abbreviation]: activeState.colors.incorrect,
 			})
 			console.log('Incorrect!')
 		}
@@ -51,7 +49,7 @@ export default function Form({
 	// 		setIsCorrect(true)
 	// 		setStateColor({
 	// 			...stateColor,
-	// 			[activeState.pathId]: activeState.colors.correct,
+	// 			[activeState.abbreviation]: activeState.colors.correct,
 	// 		})
 	// 		setActiveIndex(activeIndex + 1)
 	// 		setActiveState(states[activeIndex])
@@ -69,7 +67,7 @@ export default function Form({
 		setIsCorrect(false)
 		setStateColor({
 			...stateColor,
-			[activeState.pathId]: activeState.colors.incorrect,
+			[activeState.abbreviation]: activeState.colors.incorrect,
 		})
 		console.log('Incorrect!')
 		setActiveIndex(activeIndex + 1)
@@ -78,10 +76,10 @@ export default function Form({
 
 	return (
 		<div>
-			<h1>What State Is This?</h1>
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'
+					autoFocus
 					spellCheck='false'
 					placeholder='Press enter to submit'
 					onChange={onChange}
