@@ -1,21 +1,32 @@
-import { useState } from 'react'
-
 export default function Form({
+	setAnswer,
+	answer,
 	states,
 	setIsCorrect,
 	setActiveState,
 	activeState,
+	activeIndex,
+	setActiveIndex,
 	setStateColor,
 	stateColor,
 	setScore,
 	score,
 }) {
-	const [answer, setAnswer] = useState('')
-	const [activeIndex, setActiveIndex] = useState(0)
+	// const [answer, setAnswer] = useState('')
 
 	const onChange = event => {
 		setAnswer(event.target.value)
 	}
+
+	const onBlur = event => {
+		// if (activeState) {
+			event.preventDefault()
+			const target = event.currentTarget
+			target.focus()
+		// }
+	}
+
+	// console.log(activeIndex)
 
 	const handleSubmit = event => {
 		event.preventDefault()
@@ -26,8 +37,9 @@ export default function Form({
 			setStateColor({
 				...stateColor,
 				[activeState.abbreviation]: activeState.colors.correct,
+				// [this.activeState.abbreviation]: 'blue'
 			})
-			setActiveIndex(activeIndex + 1)
+			setActiveIndex(activeIndex++ + 1)
 			setActiveState(states[activeIndex])
 		}
 		if (answer.toLowerCase() !== activeState.name.toLowerCase()) {
@@ -40,28 +52,6 @@ export default function Form({
 		}
 	}
 
-	// const handleSubmit = event => {
-	// 	event.preventDefault()
-	// 	if (!activeState){
-	// 		console.log('no state')
-	// 	} else if (answer.toLowerCase() === activeState.name.toLowerCase()) {
-	// 		setAnswer('')
-	// 		setIsCorrect(true)
-	// 		setStateColor({
-	// 			...stateColor,
-	// 			[activeState.abbreviation]: activeState.colors.correct,
-	// 		})
-	// 		setActiveIndex(activeIndex + 1)
-	// 		setActiveState(states[activeIndex])
-	// 	} else {setIsCorrect(false)
-	// 		setStateColor({
-	// 			...stateColor,
-	// 			[activeState.name]: activeState.colors.incorrect,
-	// 		})
-	// 		console.log('Incorrect!')
-	// 	} }
-	// }
-
 	const handleSkip = () => {
 		setAnswer('')
 		setIsCorrect(false)
@@ -69,8 +59,7 @@ export default function Form({
 			...stateColor,
 			[activeState.abbreviation]: activeState.colors.incorrect,
 		})
-		console.log('Incorrect!')
-		setActiveIndex(activeIndex + 1)
+		setActiveIndex(activeIndex++ + 1)
 		setActiveState(states[activeIndex])
 	}
 
@@ -79,10 +68,11 @@ export default function Form({
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'
-					autoFocus
+					autoFocus='false'
 					spellCheck='false'
 					placeholder='Press enter to submit'
 					onChange={onChange}
+					// onBlur={onBlur}
 					value={answer}
 				/>
 			</form>
