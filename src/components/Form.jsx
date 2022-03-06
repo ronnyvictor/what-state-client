@@ -7,11 +7,12 @@ export default function Form({
 	activeState,
 	activeIndex,
 	setActiveIndex,
-	setStateColor,
-	stateColor,
+	setState,
+	state,
 	setScore,
 	score,
 	input,
+	setPreviousState,
 }) {
 	const onChange = event => {
 		setAnswer(event.target.value)
@@ -30,40 +31,46 @@ export default function Form({
 		event.preventDefault()
 		if (
 			answer.toLowerCase().replace(/\s/g, '') ===
-			activeState.name.toLowerCase().replace(/\s/g, '')
+			activeState.name.toLowerCase().replace(/\s/g, '') || activeState.abbreviation.toLowerCase()
 		) {
 			setAnswer('')
 			setIsCorrect(true)
 			setScore(score + 1)
-			setStateColor({
-				...stateColor,
-				[activeState.abbreviation]: activeState.colors.correct,
+			setState({
+				...state,
+				[activeState.abbreviation]: {
+					color: activeState.colors.correct,
+					correctness: 'correct',
+				},
 			})
 			setActiveIndex(activeIndex++ + 1)
 			setActiveState(states[activeIndex])
-		}
-		if (
-			answer.toLowerCase().replace(/\s/g, '') !==
-			activeState.name.toLowerCase().replace(/\s/g, '')
-		) {
+			setPreviousState(states[activeIndex - 1])
+		} else {
 			setIsCorrect(false)
-			setStateColor({
-				...stateColor,
-				[activeState.abbreviation]: activeState.colors.incorrect,
+			setState({
+				...state,
+				[activeState.abbreviation]: {
+					color: activeState.colors.incorrect,
+					correctness: 'correct',
+				},
 			})
-			console.log('Incorrect!')
 		}
 	}
 
 	const handleSkip = () => {
 		setAnswer('')
 		setIsCorrect(false)
-		setStateColor({
-			...stateColor,
-			[activeState.abbreviation]: activeState.colors.incorrect,
+		setState({
+			...state,
+			[activeState.abbreviation]: {
+				color: activeState.colors.incorrect,
+				correctness: 'incorrect',
+			},
 		})
 		setActiveIndex(activeIndex++ + 1)
 		setActiveState(states[activeIndex])
+		setPreviousState(states[activeIndex - 1])
 		input.current.focus()
 	}
 

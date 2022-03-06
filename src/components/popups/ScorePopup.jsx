@@ -5,13 +5,15 @@ export default function ScorePopup({
 	states,
 	setActiveState,
 	activeState,
-	setStateColor,
-	stateColor,
+	setState,
+	state,
 	setActiveIndex,
 	activeIndex,
-	initial,
+	initialColor,
 	input,
-	setAnswer
+	setAnswer,
+	setPreviousState,
+	setIsCorrect
 }) {
 	const handleTryAgain = () => {
 		setAnswer('')
@@ -19,7 +21,9 @@ export default function ScorePopup({
 		setStates(states.sort(() => Math.random() - 0.5))
 		setActiveIndex(0)
 		setActiveState(states[0])
-		setStateColor(initial)
+		setState(initialColor)
+		setPreviousState()
+		setIsCorrect()
 		input.current.focus()
 		// console.log(states)
 	}
