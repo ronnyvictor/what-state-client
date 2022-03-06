@@ -11,38 +11,41 @@ export default function Form({
 	stateColor,
 	setScore,
 	score,
+	input,
 }) {
-	// const [answer, setAnswer] = useState('')
-
 	const onChange = event => {
 		setAnswer(event.target.value)
 	}
 
-	const onBlur = event => {
-		// if (activeState) {
-			event.preventDefault()
-			const target = event.currentTarget
-			target.focus()
-		// }
-	}
+	// const onFocus = event => {
+	// 	event.preventDefault()
+	// 	if (!activeState) {
+	// 	input.current.blur()
+	// 	}
+	// }
 
 	// console.log(activeIndex)
 
 	const handleSubmit = event => {
 		event.preventDefault()
-		if (answer.toLowerCase() === activeState.name.toLowerCase()) {
+		if (
+			answer.toLowerCase().replace(/\s/g, '') ===
+			activeState.name.toLowerCase().replace(/\s/g, '')
+		) {
 			setAnswer('')
 			setIsCorrect(true)
 			setScore(score + 1)
 			setStateColor({
 				...stateColor,
 				[activeState.abbreviation]: activeState.colors.correct,
-				// [this.activeState.abbreviation]: 'blue'
 			})
 			setActiveIndex(activeIndex++ + 1)
 			setActiveState(states[activeIndex])
 		}
-		if (answer.toLowerCase() !== activeState.name.toLowerCase()) {
+		if (
+			answer.toLowerCase().replace(/\s/g, '') !==
+			activeState.name.toLowerCase().replace(/\s/g, '')
+		) {
 			setIsCorrect(false)
 			setStateColor({
 				...stateColor,
@@ -61,6 +64,7 @@ export default function Form({
 		})
 		setActiveIndex(activeIndex++ + 1)
 		setActiveState(states[activeIndex])
+		input.current.focus()
 	}
 
 	return (
@@ -68,12 +72,14 @@ export default function Form({
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'
-					autoFocus='false'
-					spellCheck='false'
+					autoFocus
+					spellCheck={false}
 					placeholder='Press enter to submit'
 					onChange={onChange}
 					// onBlur={onBlur}
+					// onFocus={onFocus}
 					value={answer}
+					ref={input}
 				/>
 			</form>
 			<button onClick={handleSkip}>Skip</button>

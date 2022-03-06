@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import './App.css'
 import USAMap from './components/USAMap'
@@ -9,7 +9,7 @@ import Header from './components/Header'
 import CorrectIncorrect from './components/CorrectIncorrect'
 import ScorePopup from './components/popups/ScorePopup'
 
-const inactive = {
+const initial = {
 	AL: '#d1be9d',
 	AK: '#d1be9d',
 	AZ: '#d1be9d',
@@ -62,13 +62,14 @@ const inactive = {
 	WY: '#d1be9d',
 }
 export default function App() {
+	const answerInput = useRef()
 	const [answer, setAnswer] = useState('')
 	const [isCorrect, setIsCorrect] = useState()
 	const [states, setStates] = useState()
 	const [activeState, setActiveState] = useState({})
 	const [activeIndex, setActiveIndex] = useState(0)
 	const [score, setScore] = useState(0)
-	const [stateColor, setStateColor] = useState(inactive)
+	const [stateColor, setStateColor] = useState(initial)
 
 	useEffect(() => {
 		fetch('http://localhost:3003/states')
@@ -108,6 +109,7 @@ export default function App() {
 						stateColor={stateColor}
 						score={score}
 						setScore={setScore}
+						input={answerInput}
 					/>
 					<Score score={score} />
 					<CorrectIncorrect isCorrect={isCorrect} />
@@ -115,6 +117,7 @@ export default function App() {
 				</div>
 				<USAMap stateColor={stateColor} />
 				<ScorePopup
+				setAnswer={setAnswer}
 					setScore={setScore}
 					score={score}
 					setStates={setStates}
@@ -125,7 +128,8 @@ export default function App() {
 					stateColor={stateColor}
 					setActiveIndex={setActiveIndex}
 					activeIndex={activeIndex}
-					inactive={inactive}
+					initial={initial}
+					input={answerInput}
 				/>
 			</div>
 		</div>

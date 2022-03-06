@@ -9,18 +9,18 @@ export default function ScorePopup({
 	stateColor,
 	setActiveIndex,
 	activeIndex,
-	inactive,
+	initial,
+	input,
+	setAnswer
 }) {
 	const handleTryAgain = () => {
-		// setAnswer('')
+		setAnswer('')
 		setScore(0)
 		setStates(states.sort(() => Math.random() - 0.5))
 		setActiveIndex(0)
-		setActiveState(states[activeIndex])
-		setStateColor({
-			...stateColor,
-			[activeState.abbreviation]: activeState.colors.active,
-		})
+		setActiveState(states[0])
+		setStateColor(initial)
+		input.current.focus()
 		// console.log(states)
 	}
 
@@ -31,7 +31,7 @@ export default function ScorePopup({
 			{!activeState ? (
 				<div className='box'>
 					<div className='score-card'>
-						<p> You scored {score} out of 50!</p>
+						<p>You scored {score} out of 50!</p>
 						<button onClick={handleTryAgain}>Try Again</button>
 					</div>
 				</div>
