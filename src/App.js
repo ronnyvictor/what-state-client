@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { app } from './ConnectAuth'
+
 import './App.css'
 import USAMap from './components/USAMap'
 import Score from './components/Score'
@@ -62,6 +65,9 @@ const initial = {
 	WY: { color: '#d1be9d', correct: null },
 }
 
+const provider = new GoogleAuthProvider()
+const auth = getAuth(app)
+
 export default function App() {
 	const answerInput = useRef()
 	const [answer, setAnswer] = useState('')
@@ -72,6 +78,7 @@ export default function App() {
 	const [activeIndex, setActiveIndex] = useState(0)
 	const [score, setScore] = useState(0)
 	const [stateProps, setStateProps] = useState(initial)
+	const [user, setUser] = useState()
 
 	useEffect(() => {
 		fetch('http://localhost:3003/states')
@@ -102,10 +109,30 @@ export default function App() {
 		}
 	}, [activeState])
 
+	const handleGoogleLogin = () => {
+		signInWithPopup(auth, provider)
+			.then(result => {
+				setUser(result.user)
+				localStorage.setItem('displayName', result.user.displayName)
+				localStorage.setItem('avatar', result.user.photoURL)
+				localStorage.setItem('uid', result.user.uid)
+			})
+			.catch(alert)
+	}
+	console.log(user)
+
+	// useEffect(()=>{
+	// 	const localUser = localStorage.getItem('displayName')
+	// 	const avatar = localStorage.getItem('avatar')
+	// 	const uid = localStorage.getItem('uid')
+  //   console.log(localUser)
+	// 	if(user){set}
+	// })
+
 	return (
 		<div>
 			<header>
-				<Header />
+				<Header handleGoogleLogin={handleGoogleLogin} user={user} />
 			</header>
 			<div className='main'>
 				<div className='sider'>
@@ -143,6 +170,7 @@ export default function App() {
 					setPreviousState={setPreviousState}
 					previousState={previousState}
 					setIsCorrect={setIsCorrect}
+					user={user}
 				/>
 			</div>
 		</div>

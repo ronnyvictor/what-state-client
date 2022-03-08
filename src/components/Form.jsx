@@ -27,9 +27,6 @@ export default function Form({
 			setIsCorrect(true)
 			setScore(score + 1)
 
-			// console.log(nextState)
-			// console.log(activeState)
-
 			setStateProps({
 				...stateProps,
 				[activeState.abbreviation]: {
@@ -40,9 +37,6 @@ export default function Form({
 
 			setActiveIndex(activeIndex + 1)
 
-			console.log(stateProps)
-
-			// setNextState(states[activeIndex + 1])
 		} else {
 			setIsCorrect(false)
 			setStateProps({

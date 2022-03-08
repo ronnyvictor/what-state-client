@@ -16,7 +16,8 @@ export default function ScorePopup({
 	setAnswer,
 	setPreviousState,
 	setIsCorrect,
-	previousState
+	previousState,
+	user,
 }) {
 	const handleTryAgain = () => {
 		setAnswer('')
@@ -32,7 +33,7 @@ export default function ScorePopup({
 
 	const result = {
 		score: score,
-		userId: '1',
+		userId: user ? user.uid : null,
 		states: states
 			? states.map(state => {
 					return {
@@ -66,12 +67,18 @@ export default function ScorePopup({
 						<p>You got {score} out of 50 states correct!</p>
 						<button onClick={handleTryAgain}>Try Again</button>
 						<button onClick={handleSend}>Send</button>
-						<div className="state-results-outer">
+						<div className='state-results-outer'>
 							{states ? (
 								states.map(state => {
 									return (
 										<div className='state-results-inner' key={state.id}>
-											<a href={state.wikipedia} target='_blank' rel='noreferrer'>{state.name}</a>
+											<a
+												href={state.wikipedia}
+												target='_blank'
+												rel='noreferrer'
+											>
+												{state.name}
+											</a>
 											{stateProps[state.abbreviation].correct ? (
 												<div className='correct-incorrect'>
 													<img src={checkIcon} alt='check icon' />
