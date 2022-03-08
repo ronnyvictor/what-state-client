@@ -1,58 +1,55 @@
 export default function Form({
 	setAnswer,
 	answer,
-	states,
 	setIsCorrect,
-	setActiveState,
 	activeState,
 	activeIndex,
 	setActiveIndex,
-	setState,
-	state,
+	setStateProps,
+	stateProps,
 	setScore,
 	score,
 	input,
-	setPreviousState,
 }) {
 	const onChange = event => {
 		setAnswer(event.target.value)
 	}
 
-	// const onFocus = event => {
-	// 	event.preventDefault()
-	// 	if (!activeState) {
-	// 	input.current.blur()
-	// 	}
-	// }
-
-	// console.log(activeIndex)
+	console.log(stateProps)
 
 	const handleSubmit = event => {
 		event.preventDefault()
 		if (
 			answer.toLowerCase().replace(/\s/g, '') ===
-			activeState.name.toLowerCase().replace(/\s/g, '') || activeState.abbreviation.toLowerCase()
+			activeState.name.toLowerCase().replace(/\s/g, '')
 		) {
 			setAnswer('')
 			setIsCorrect(true)
 			setScore(score + 1)
-			setState({
-				...state,
+
+			// console.log(nextState)
+			// console.log(activeState)
+
+			setStateProps({
+				...stateProps,
 				[activeState.abbreviation]: {
 					color: activeState.colors.correct,
-					correctness: 'correct',
+					correct: true,
 				},
 			})
-			setActiveIndex(activeIndex++ + 1)
-			setActiveState(states[activeIndex])
-			setPreviousState(states[activeIndex - 1])
+
+			setActiveIndex(activeIndex + 1)
+
+			console.log(stateProps)
+
+			// setNextState(states[activeIndex + 1])
 		} else {
 			setIsCorrect(false)
-			setState({
-				...state,
+			setStateProps({
+				...stateProps,
 				[activeState.abbreviation]: {
 					color: activeState.colors.incorrect,
-					correctness: 'correct',
+					correct: false,
 				},
 			})
 		}
@@ -61,16 +58,14 @@ export default function Form({
 	const handleSkip = () => {
 		setAnswer('')
 		setIsCorrect(false)
-		setState({
-			...state,
+		setStateProps({
+			...stateProps,
 			[activeState.abbreviation]: {
 				color: activeState.colors.incorrect,
-				correctness: 'incorrect',
+				correct: false,
 			},
 		})
-		setActiveIndex(activeIndex++ + 1)
-		setActiveState(states[activeIndex])
-		setPreviousState(states[activeIndex - 1])
+		setActiveIndex(activeIndex + 1)
 		input.current.focus()
 	}
 
@@ -83,8 +78,6 @@ export default function Form({
 					spellCheck={false}
 					placeholder='Press enter to submit'
 					onChange={onChange}
-					// onBlur={onBlur}
-					// onFocus={onFocus}
 					value={answer}
 					ref={input}
 				/>

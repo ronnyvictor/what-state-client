@@ -10,56 +10,56 @@ import CorrectIncorrect from './components/CorrectIncorrect'
 import ScorePopup from './components/popups/ScorePopup'
 
 const initial = {
-	AL: { color: '#d1be9d', correctness: undefined },
-	AK: { color: '#d1be9d', correctness: undefined },
-	AZ: { color: '#d1be9d', correctness: undefined },
-	AR: { color: '#d1be9d', correctness: undefined },
-	CA: { color: '#d1be9d', correctness: undefined },
-	CO: { color: '#d1be9d', correctness: undefined },
-	CT: { color: '#d1be9d', correctness: undefined },
-	DE: { color: '#d1be9d', correctness: undefined },
-	FL: { color: '#d1be9d', correctness: undefined },
-	GA: { color: '#d1be9d', correctness: undefined },
-	HI: { color: '#d1be9d', correctness: undefined },
-	ID: { color: '#d1be9d', correctness: undefined },
-	IL: { color: '#d1be9d', correctness: undefined },
-	IN: { color: '#d1be9d', correctness: undefined },
-	IA: { color: '#d1be9d', correctness: undefined },
-	KS: { color: '#d1be9d', correctness: undefined },
-	KY: { color: '#d1be9d', correctness: undefined },
-	LA: { color: '#d1be9d', correctness: undefined },
-	ME: { color: '#d1be9d', correctness: undefined },
-	MD: { color: '#d1be9d', correctness: undefined },
-	MA: { color: '#d1be9d', correctness: undefined },
-	MI: { color: '#d1be9d', correctness: undefined },
-	MN: { color: '#d1be9d', correctness: undefined },
-	MS: { color: '#d1be9d', correctness: undefined },
-	MO: { color: '#d1be9d', correctness: undefined },
-	MT: { color: '#d1be9d', correctness: undefined },
-	NE: { color: '#d1be9d', correctness: undefined },
-	NV: { color: '#d1be9d', correctness: undefined },
-	NH: { color: '#d1be9d', correctness: undefined },
-	NJ: { color: '#d1be9d', correctness: undefined },
-	NM: { color: '#d1be9d', correctness: undefined },
-	NY: { color: '#d1be9d', correctness: undefined },
-	NC: { color: '#d1be9d', correctness: undefined },
-	ND: { color: '#d1be9d', correctness: undefined },
-	OH: { color: '#d1be9d', correctness: undefined },
-	OK: { color: '#d1be9d', correctness: undefined },
-	OR: { color: '#d1be9d', correctness: undefined },
-	PA: { color: '#d1be9d', correctness: undefined },
-	RI: { color: '#d1be9d', correctness: undefined },
-	SC: { color: '#d1be9d', correctness: undefined },
-	SD: { color: '#d1be9d', correctness: undefined },
-	TN: { color: '#d1be9d', correctness: undefined },
-	TX: { color: '#d1be9d', correctness: undefined },
-	UT: { color: '#d1be9d', correctness: undefined },
-	VT: { color: '#d1be9d', correctness: undefined },
-	VA: { color: '#d1be9d', correctness: undefined },
-	WA: { color: '#d1be9d', correctness: undefined },
-	WV: { color: '#d1be9d', correctness: undefined },
-	WI: { color: '#d1be9d', correctness: undefined },
-	WY: { color: '#d1be9d', correctness: undefined },
+	AL: { color: '#d1be9d', correct: null },
+	AK: { color: '#d1be9d', correct: null },
+	AZ: { color: '#d1be9d', correct: null },
+	AR: { color: '#d1be9d', correct: null },
+	CA: { color: '#d1be9d', correct: null },
+	CO: { color: '#d1be9d', correct: null },
+	CT: { color: '#d1be9d', correct: null },
+	DE: { color: '#d1be9d', correct: null },
+	FL: { color: '#d1be9d', correct: null },
+	GA: { color: '#d1be9d', correct: null },
+	HI: { color: '#d1be9d', correct: null },
+	ID: { color: '#d1be9d', correct: null },
+	IL: { color: '#d1be9d', correct: null },
+	IN: { color: '#d1be9d', correct: null },
+	IA: { color: '#d1be9d', correct: null },
+	KS: { color: '#d1be9d', correct: null },
+	KY: { color: '#d1be9d', correct: null },
+	LA: { color: '#d1be9d', correct: null },
+	ME: { color: '#d1be9d', correct: null },
+	MD: { color: '#d1be9d', correct: null },
+	MA: { color: '#d1be9d', correct: null },
+	MI: { color: '#d1be9d', correct: null },
+	MN: { color: '#d1be9d', correct: null },
+	MS: { color: '#d1be9d', correct: null },
+	MO: { color: '#d1be9d', correct: null },
+	MT: { color: '#d1be9d', correct: null },
+	NE: { color: '#d1be9d', correct: null },
+	NV: { color: '#d1be9d', correct: null },
+	NH: { color: '#d1be9d', correct: null },
+	NJ: { color: '#d1be9d', correct: null },
+	NM: { color: '#d1be9d', correct: null },
+	NY: { color: '#d1be9d', correct: null },
+	NC: { color: '#d1be9d', correct: null },
+	ND: { color: '#d1be9d', correct: null },
+	OH: { color: '#d1be9d', correct: null },
+	OK: { color: '#d1be9d', correct: null },
+	OR: { color: '#d1be9d', correct: null },
+	PA: { color: '#d1be9d', correct: null },
+	RI: { color: '#d1be9d', correct: null },
+	SC: { color: '#d1be9d', correct: null },
+	SD: { color: '#d1be9d', correct: null },
+	TN: { color: '#d1be9d', correct: null },
+	TX: { color: '#d1be9d', correct: null },
+	UT: { color: '#d1be9d', correct: null },
+	VT: { color: '#d1be9d', correct: null },
+	VA: { color: '#d1be9d', correct: null },
+	WA: { color: '#d1be9d', correct: null },
+	WV: { color: '#d1be9d', correct: null },
+	WI: { color: '#d1be9d', correct: null },
+	WY: { color: '#d1be9d', correct: null },
 }
 
 export default function App() {
@@ -67,34 +67,40 @@ export default function App() {
 	const [answer, setAnswer] = useState('')
 	const [isCorrect, setIsCorrect] = useState()
 	const [states, setStates] = useState()
-	const [activeState, setActiveState] = useState({})
+	const [activeState, setActiveState] = useState()
 	const [previousState, setPreviousState] = useState()
 	const [activeIndex, setActiveIndex] = useState(0)
 	const [score, setScore] = useState(0)
-	const [state, setState] = useState(initial)
-	// const [state, setState] = useState(initialCorrectness)
+	const [stateProps, setStateProps] = useState(initial)
 
 	useEffect(() => {
 		fetch('http://localhost:3003/states')
 			.then(res => res.json())
 			.then(data => {
 				setStates(data.sort(() => Math.random() - 0.5))
-				setActiveState(data[0])
-				setState(Object.assign({}, state, {
-					[data[0].abbreviation]: Object.assign({}, state[data[0].abbreviation], {
-						color: data[0].colors.active
-					})
-				}))
+				setActiveState(data[activeIndex])
 			})
 			.catch(console.error)
 	}, [])
-	
 
-	// console.log(states)
-	// console.log(activeState)
-	// console.log(previousState)
-	// console.log(activeIndex)
-	console.log(state)
+	useEffect(() => {
+		if (activeState) {
+			setActiveState(states[activeIndex])
+			setPreviousState(states[activeIndex - 1])
+		}
+	}, [activeIndex, states, activeState])
+
+	useEffect(() => {
+		if (activeState) {
+			setStateProps({
+				...stateProps,
+				[activeState.abbreviation]: {
+					color: activeState.colors.active,
+					correct: null,
+				},
+			})
+		}
+	}, [activeState])
 
 	return (
 		<div>
@@ -106,24 +112,21 @@ export default function App() {
 					<Form
 						setAnswer={setAnswer}
 						answer={answer}
-						setState={setState}
+						setStateProps={setStateProps}
 						setIsCorrect={setIsCorrect}
-						states={states}
-						setActiveState={setActiveState}
 						activeState={activeState}
 						setActiveIndex={setActiveIndex}
 						activeIndex={activeIndex}
-						state={state}
+						stateProps={stateProps}
 						score={score}
 						setScore={setScore}
 						input={answerInput}
-						setPreviousState={setPreviousState}
 					/>
 					<Score score={score} />
 					<CorrectIncorrect isCorrect={isCorrect} />
 					<StateInfo previousState={previousState} />
 				</div>
-				<USAMap state={state} />
+				<USAMap stateProps={stateProps} />
 				<ScorePopup
 					setAnswer={setAnswer}
 					setScore={setScore}
@@ -132,13 +135,13 @@ export default function App() {
 					states={states}
 					activeState={activeState}
 					setActiveState={setActiveState}
-					setState={setState}
-					state={state}
+					setStateProps={setStateProps}
+					stateProps={stateProps}
 					setActiveIndex={setActiveIndex}
-					activeIndex={activeIndex}
 					initialColor={initial}
 					input={answerInput}
 					setPreviousState={setPreviousState}
+					previousState={previousState}
 					setIsCorrect={setIsCorrect}
 				/>
 			</div>
