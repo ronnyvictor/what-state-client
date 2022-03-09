@@ -1,7 +1,7 @@
 import checkIcon from '../../assets/check-icon.svg'
 import xIcon from '../../assets/x-icon.svg'
 
-export default function ScorePopup({
+export default function ResultsPopup({
 	score,
 	setScore,
 	setStates,
@@ -12,12 +12,16 @@ export default function ScorePopup({
 	stateProps,
 	setActiveIndex,
 	initialColor,
-	input,
+	answerInput,
 	setAnswer,
 	setPreviousState,
 	setIsCorrect,
 	previousState,
 	user,
+	setHsPopup,
+	hsPopup,
+	handleGoogleLogin,
+	setAttempts
 }) {
 	const handleTryAgain = () => {
 		setAnswer('')
@@ -28,7 +32,8 @@ export default function ScorePopup({
 		setStateProps(initialColor)
 		setPreviousState()
 		setIsCorrect()
-		input.current.focus()
+		setAttempts(0)
+		answerInput.current.focus()
 	}
 
 	const result = {
@@ -40,6 +45,7 @@ export default function ScorePopup({
 						name: state.name,
 						abbreviation: state.abbreviation,
 						correct: stateProps[state.abbreviation].correct,
+						wikipedia: state.wikipedia,
 					}
 			  })
 			: null,
@@ -54,19 +60,24 @@ export default function ScorePopup({
 			},
 			body: JSON.stringify(result),
 		})
-		handleTryAgain()
+		.then(setHsPopup(true))
 	}
 
 	// console.log(result)
 
 	return (
 		<>
-			{!activeState && previousState ? (
+			{!activeState && previousState && !hsPopup ? (
 				<div className='box'>
 					<div className='score-card'>
 						<p>You got {score} out of 50 states correct!</p>
 						<button onClick={handleTryAgain}>Try Again</button>
-						<button onClick={handleSend}>Send</button>
+						{!user ? (
+							<button onClick={handleGoogleLogin}>Sign in</button>
+						) : (
+							<button onClick={handleSend}>Post Score</button>
+						)}
+
 						<div className='state-results-outer'>
 							{states ? (
 								states.map(state => {

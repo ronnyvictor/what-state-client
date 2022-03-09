@@ -10,7 +10,8 @@ import Form from './components/Form'
 import StateInfo from './components/StateInfo'
 import Header from './components/Header'
 import CorrectIncorrect from './components/CorrectIncorrect'
-import ScorePopup from './components/popups/ScorePopup'
+import ResultsPopup from './components/popups/ResultsPopup'
+import HighScoresPopup from './components/popups/HighScoresPopup'
 
 const initial = {
 	AL: { color: '#d1be9d', correct: null },
@@ -70,15 +71,19 @@ const auth = getAuth(app)
 
 export default function App() {
 	const answerInput = useRef()
+
 	const [answer, setAnswer] = useState('')
 	const [isCorrect, setIsCorrect] = useState()
 	const [states, setStates] = useState()
 	const [activeState, setActiveState] = useState()
 	const [previousState, setPreviousState] = useState()
 	const [activeIndex, setActiveIndex] = useState(0)
+	const [attempts, setAttempts] = useState(0)
 	const [score, setScore] = useState(0)
 	const [stateProps, setStateProps] = useState(initial)
 	const [user, setUser] = useState()
+	const [userScores, setUserScores] = useState()
+	const [hsPopup, setHsPopup] = useState()
 
 	useEffect(() => {
 		fetch('http://localhost:3003/states')
@@ -110,6 +115,7 @@ export default function App() {
 	}, [activeState])
 
 	const handleGoogleLogin = () => {
+		answerInput.current.focus()
 		signInWithPopup(auth, provider)
 			.then(result => {
 				setUser(result.user)
@@ -119,20 +125,26 @@ export default function App() {
 			})
 			.catch(alert)
 	}
-	console.log(user)
 
-	// useEffect(()=>{
-	// 	const localUser = localStorage.getItem('displayName')
-	// 	const avatar = localStorage.getItem('avatar')
-	// 	const uid = localStorage.getItem('uid')
-  //   console.log(localUser)
-	// 	if(user){set}
-	// })
+	useEffect(() => {
+		if (user) {
+			fetch(`http://localhost:3003/scores/${user.uid}`)
+				.then(res => res.json())
+				.then(data => setUserScores(data))
+				.catch(console.error)
+		}
+	}, [user, hsPopup])
 
 	return (
 		<div>
 			<header>
-				<Header handleGoogleLogin={handleGoogleLogin} user={user} />
+				<Header
+					handleGoogleLogin={handleGoogleLogin}
+					user={user}
+					setHsPopup={setHsPopup}
+					setUserScores={setUserScores}
+					answerInput={answerInput}
+				/>
 			</header>
 			<div className='main'>
 				<div className='sider'>
@@ -147,14 +159,16 @@ export default function App() {
 						stateProps={stateProps}
 						score={score}
 						setScore={setScore}
-						input={answerInput}
+						answerInput={answerInput}
+						attempts={attempts}
+						setAttempts={setAttempts}
 					/>
 					<Score score={score} />
 					<CorrectIncorrect isCorrect={isCorrect} />
 					<StateInfo previousState={previousState} />
 				</div>
 				<USAMap stateProps={stateProps} />
-				<ScorePopup
+				<ResultsPopup
 					setAnswer={setAnswer}
 					setScore={setScore}
 					score={score}
@@ -166,12 +180,26 @@ export default function App() {
 					stateProps={stateProps}
 					setActiveIndex={setActiveIndex}
 					initialColor={initial}
-					input={answerInput}
+					answerInput={answerInput}
 					setPreviousState={setPreviousState}
 					previousState={previousState}
 					setIsCorrect={setIsCorrect}
 					user={user}
+					setHsPopup={setHsPopup}
+					hsPopup={hsPopup}
+					handleGoogleLogin={handleGoogleLogin}
+					setAttempts={setAttempts}
 				/>
+				<div>
+					<HighScoresPopup
+						userScores={userScores}
+						user={user}
+						setUserScores={setUserScores}
+						hsPopup={hsPopup}
+						setHsPopup={setHsPopup}
+						answerInput={answerInput}
+					/>
+				</div>
 			</div>
 		</div>
 	)

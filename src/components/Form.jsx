@@ -9,7 +9,9 @@ export default function Form({
 	stateProps,
 	setScore,
 	score,
-	input,
+	answerInput,
+	attempts,
+	setAttempts,
 }) {
 	const onChange = event => {
 		setAnswer(event.target.value)
@@ -20,8 +22,9 @@ export default function Form({
 	const handleSubmit = event => {
 		event.preventDefault()
 		if (
+			attempts === 0 &&
 			answer.toLowerCase().replace(/\s/g, '') ===
-			activeState.name.toLowerCase().replace(/\s/g, '')
+				activeState.name.toLowerCase().replace(/\s/g, '')
 		) {
 			setAnswer('')
 			setIsCorrect(true)
@@ -36,9 +39,14 @@ export default function Form({
 			})
 
 			setActiveIndex(activeIndex + 1)
-
-		} else {
-			setIsCorrect(false)
+		} else if (
+			attempts > 0 &&
+			answer.toLowerCase().replace(/\s/g, '') ===
+				activeState.name.toLowerCase().replace(/\s/g, '')
+		) {
+			setAnswer('')
+			setActiveIndex(activeIndex + 1)
+			setAttempts(0)
 			setStateProps({
 				...stateProps,
 				[activeState.abbreviation]: {
@@ -46,6 +54,9 @@ export default function Form({
 					correct: false,
 				},
 			})
+		} else {
+			setAttempts(attempts + 1)
+			setIsCorrect(false)
 		}
 	}
 
@@ -60,7 +71,7 @@ export default function Form({
 			},
 		})
 		setActiveIndex(activeIndex + 1)
-		input.current.focus()
+		answerInput.current.focus()
 	}
 
 	return (
@@ -73,7 +84,7 @@ export default function Form({
 					placeholder='Press enter to submit'
 					onChange={onChange}
 					value={answer}
-					ref={input}
+					ref={answerInput}
 				/>
 			</form>
 			<button onClick={handleSkip}>Skip</button>

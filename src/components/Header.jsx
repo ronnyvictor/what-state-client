@@ -1,4 +1,5 @@
-export default function Header({ handleGoogleLogin, user }) {
+export default function Header({ handleGoogleLogin, user, setUserScores, setHsPopup }) {
+
 	return (
 		<>
 			<h1>What State is This?</h1>
@@ -6,8 +7,7 @@ export default function Header({ handleGoogleLogin, user }) {
 				<button onClick={handleGoogleLogin}>Sign in with Google</button>
 			) : (
 				<>
-				<button>High Scores</button>
-				<p>{user.displayName}</p>
+					<button onClick={()=> setHsPopup(true)}>High Scores</button>
 				</>
 			)}
 		</>
