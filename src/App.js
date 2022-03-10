@@ -5,11 +5,9 @@ import { app } from './ConnectAuth'
 
 import './App.css'
 import USAMap from './components/USAMap'
-import Score from './components/Score'
 import Form from './components/Form'
 import StateInfo from './components/StateInfo'
 import Header from './components/Header'
-import CorrectIncorrect from './components/CorrectIncorrect'
 import ResultsPopup from './components/popups/ResultsPopup'
 import HighScoresPopup from './components/popups/HighScoresPopup'
 
@@ -162,9 +160,12 @@ export default function App() {
 						answerInput={answerInput}
 						attempts={attempts}
 						setAttempts={setAttempts}
+						isCorrect={isCorrect}
+						setStates={setStates}
+						states={states}
+						initial={initial}
+						setActiveState={setActiveState}
 					/>
-					<Score score={score} />
-					<CorrectIncorrect isCorrect={isCorrect} />
 					<StateInfo previousState={previousState} />
 				</div>
 				<USAMap stateProps={stateProps} />

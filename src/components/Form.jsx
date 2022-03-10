@@ -1,3 +1,6 @@
+import checkIcon from '../assets/check-icon.svg'
+import xIcon from '../assets/x-icon.svg'
+
 export default function Form({
 	setAnswer,
 	answer,
@@ -12,19 +15,40 @@ export default function Form({
 	answerInput,
 	attempts,
 	setAttempts,
+	isCorrect,
+	setStates,
+	initial,
+	states,
+	setActiveState,
 }) {
 	const onChange = event => {
 		setAnswer(event.target.value)
 	}
 
-	console.log(stateProps)
-
 	const handleSubmit = event => {
+		console.log(attempts)
 		event.preventDefault()
 		if (
 			attempts === 0 &&
 			answer.toLowerCase().replace(/\s/g, '') ===
 				activeState.name.toLowerCase().replace(/\s/g, '')
+		) {
+			setAnswer('')
+			setIsCorrect(true)
+			setScore(score + 1)
+
+			setStateProps({
+				...stateProps,
+				[activeState.abbreviation]: {
+					color: activeState.colors.correct,
+					correct: true,
+				},
+			})
+
+			setActiveIndex(activeIndex + 1)
+		} else if (
+			attempts === 0 &&
+			answer.toLowerCase() === activeState.abbreviation.toLowerCase()
 		) {
 			setAnswer('')
 			setIsCorrect(true)
@@ -54,7 +78,7 @@ export default function Form({
 					correct: false,
 				},
 			})
-		} else {
+		} else if (answer !== '') {
 			setAttempts(attempts + 1)
 			setIsCorrect(false)
 		}
@@ -63,6 +87,7 @@ export default function Form({
 	const handleSkip = () => {
 		setAnswer('')
 		setIsCorrect(false)
+		setAttempts(0)
 		setStateProps({
 			...stateProps,
 			[activeState.abbreviation]: {
@@ -74,8 +99,20 @@ export default function Form({
 		answerInput.current.focus()
 	}
 
+	const handleReset = () => {
+		setAnswer('')
+		setIsCorrect()
+		setAttempts(0)
+		setScore(0)
+		setStates(states.sort(() => Math.random() - 0.5))
+		setActiveIndex(0)
+		setActiveState(states[0])
+		setStateProps(initial)
+		answerInput.current.focus()
+	}
+
 	return (
-		<div>
+		<div className='form'>
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'
@@ -87,7 +124,28 @@ export default function Form({
 					ref={answerInput}
 				/>
 			</form>
-			<button onClick={handleSkip}>Skip</button>
+			<div>
+				<button onClick={handleSkip}>Skip</button>
+				<button onClick={handleReset}>Reset</button>
+				<p>
+					<span className='bolder'>Score:</span> {score}
+				</p>
+				<>
+					{isCorrect === true ? (
+						<div className='correct-incorrect'>
+							<img src={checkIcon} alt='check icon' />
+							<p className='correct'>Correct!</p>
+						</div>
+					) : isCorrect === false ? (
+						<div className='correct-incorrect'>
+							<img src={xIcon} alt='x icon' />
+							<p className='incorrect'>Incorrect!</p>
+						</div>
+					) : (
+						<></>
+					)}
+				</>
+			</div>
 		</div>
 	)
 }

@@ -4,8 +4,6 @@ export default function USAMap({ stateProps }) {
 			id='USA_Map'
 			data-name='USA Map'
 			xmlns='http://www.w3.org/2000/svg'
-			width='1067.399'
-			height='765.717'
 			viewBox='0 0 1067.399 765.717'
 		>
 			<path

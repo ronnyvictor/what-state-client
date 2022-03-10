@@ -1,6 +1,6 @@
 export default function StateInfo({ previousState }) {
 	return (
-		<>
+		<div className='state-info'>
 			{previousState ? (
 				<>
 					<h2>{previousState.name}</h2>
@@ -18,6 +18,6 @@ export default function StateInfo({ previousState }) {
 			) : (
 				<></>
 			)}
-		</>
+		</div>
 	)
 }

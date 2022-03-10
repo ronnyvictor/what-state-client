@@ -9,6 +9,7 @@ export default function HighScoresPopup({
 	hsPopup,
 	setHsPopup,
 	answerInput,
+	setUserScores,
 }) {
 	const elemRef = useRef(null)
 	const dragProps = useRef()
@@ -41,15 +42,15 @@ export default function HighScoresPopup({
 		window.removeEventListener('mouseup', stopDragging, false)
 	}
 
-	const handleDelete = () => {
-			userScores.map(userScore => {
-				return(
-					fetch(`http://localhost:3003/scores/${userScore.id}`, {method: 'DELETE'})
-					.then(console.log('success!'))
-					.catch(console.error)
-				)
-			})
-	}
+	// const handleDelete = () => {
+	// 		userScores.map(userScore => {
+	// 			return(
+	// 				fetch(`http://localhost:3003/scores/${userScore.id}`, {method: 'DELETE'})
+	// 				.then(console.log('success!'))
+	// 				.catch(console.error)
+	// 			)
+	// 		})
+	// }
 
 	return (
 		<>
@@ -69,40 +70,66 @@ export default function HighScoresPopup({
 							>
 								X
 							</button>
-							{userScores && userScores.length > 0
-								? userScores
-										.sort((a, b) => b.score - a.score)
-										.map(userScore => {
-											return (
-												<div key={userScore.id}>
-													<p>Score: {userScore.score}</p>
-													<p>{userScore.date}</p>
-													<p>{userScore.time}</p>
-													<button onClick={handleDelete}>Delete</button>
-													{userScore.states.map(state => {
-														return (
-															<div key={state.abbreviation}>
-																<div className='correct-incorrect'>
-																	{state.correct ? (
-																		<div>
-																			<img src={checkIcon} alt='check icon' />
-																		</div>
-																	) : (
-																		<div className='correct-incorrect'>
-																			<img src={xIcon} alt='x icon' />
-																		</div>
-																	)}
-																	<p>{state.abbreviation}</p>
+							{userScores && userScores.length > 0 ? (
+								userScores
+									.sort((a, b) => b.score - a.score)
+									.map(userScore => {
+										return (
+											<div key={userScore.id}>
+												{!userScore.deleted ? (
+													<>
+														<p>Score: {userScore.score}</p>
+														<p>{userScore.date}</p>
+														<p>{userScore.time}</p>
+														<button
+															onClick={() => {
+																fetch(
+																	`http://localhost:3003/scores/${userScore.id}`,
+																	{ method: 'PATCH' }
+																).then(
+																	fetch(
+																		`http://localhost:3003/scores/${user.uid}`
+																	)
+																		.then(res => res.json())
+																		.then(data => setUserScores(data))
+																		.catch(console.error)
+																)
+															}}
+														>
+															Delete
+														</button>
+														{userScore.states.map(state => {
+															return (
+																<div key={state.abbreviation}>
+																	<div className='correct-incorrect'>
+																		{state.correct ? (
+																			<div>
+																				<img src={checkIcon} alt='check icon' />
+																			</div>
+																		) : (
+																			<div className='correct-incorrect'>
+																				<img src={xIcon} alt='x icon' />
+																			</div>
+																		)}
+																		<p>{state.abbreviation}</p>
+																	</div>
 																</div>
-															</div>
-														)
-													})}
-												</div>
-											)
-										})
-								: <div>
+															)
+														})}
+													</>
+												) : (
+													<>
+														<p>No scores yet</p>
+													</>
+												)}
+											</div>
+										)
+									})
+							) : (
+								<div>
 									<p>No scores yet</p>
-									</div>}
+								</div>
+							)}
 						</div>
 					</div>
 				</div>

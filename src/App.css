@@ -2,6 +2,8 @@
 
 body {
 	background-color: #b9a37e;
+  height: 100%;
+  margin: 0;
 }
 
 ::-webkit-scrollbar {
@@ -65,17 +67,20 @@ header {
 	display: flex;
 	justify-content: space-between;
 	border-bottom: solid 1px #4e463786;
+	padding: 0 25px 0 25px;
 }
 
 .main {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 }
 
 .sider {
 	display: flex;
 	flex-direction: column;
-	width: 25%;
+	width: 33%;
+	border-right: 1px solid #4e463786;
+  height: 100%;
 }
 
 input {
@@ -125,7 +130,14 @@ button:hover {
 
 #USA_Map {
 	width: 55%;
-	transform: translateY(-50px);
+	height: 55%;
+	transform: translate(8px, 30px);
+	overflow: hidden;
+
+}
+
+#USA_Map path {
+	transition: 0.5s;
 }
 
 .correct {
@@ -172,7 +184,7 @@ button:hover {
 	padding: 0px;
 	border: 1px solid #4e463786;
 	overflow: auto;
-  /* cursor: grab; */
+	/* cursor: grab; */
 }
 
 .score-card p {
@@ -205,4 +217,34 @@ button:hover {
 .container {
 	display: flex;
 	flex-wrap: wrap;
+}
+
+.form {
+	border-bottom: 1px solid #4e463786;
+	padding: 40px 40px 70px 40px;
+	height: 20vh;
+}
+
+.form button {
+	padding-right: 10px;
+}
+
+.form form {
+	margin-bottom: 20px;
+}
+
+.state-info {
+  /* display: flex; */
+  /* flex-direction: column; */
+	padding: 40px 40px 70px 40px;
+  height: 100vh;
+  flex: 0 1 auto;
+}
+
+/* #Alaska{
+  transform: translate(-60px, 490px);
+} */
+
+#Hawaii {
+	transform: translate(260px, 606px);
 }
