@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import {
+	getAuth,
+	GoogleAuthProvider,
+	signInWithPopup,
+	onAuthStateChanged,
+	signOut,
+} from 'firebase/auth'
 import { app } from './ConnectAuth'
 
 import './App.css'
@@ -84,7 +90,7 @@ export default function App() {
 	const [hsPopup, setHsPopup] = useState()
 
 	useEffect(() => {
-		fetch('http://localhost:3003/states')
+		fetch('http://what-state-rv.uk.r.appspot.com/states')
 			.then(res => res.json())
 			.then(data => {
 				setStates(data.sort(() => Math.random() - 0.5))
@@ -117,21 +123,30 @@ export default function App() {
 		signInWithPopup(auth, provider)
 			.then(result => {
 				setUser(result.user)
-				localStorage.setItem('displayName', result.user.displayName)
-				localStorage.setItem('avatar', result.user.photoURL)
-				localStorage.setItem('uid', result.user.uid)
 			})
 			.catch(alert)
 	}
 
+	const handleSignOut = () => {
+		signOut(auth)
+		answerInput.current.focus()
+	}
+
+	useEffect(() => {
+		onAuthStateChanged(auth, u => {
+			setUser(u)
+			console.log(u)
+		})
+	}, [auth])
+
 	useEffect(() => {
 		if (user) {
-			fetch(`http://localhost:3003/scores/${user.uid}`)
+			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
 				.then(res => res.json())
 				.then(data => setUserScores(data))
 				.catch(console.error)
 		}
-	}, [user, hsPopup])
+	}, [user])
 
 	return (
 		<div>
@@ -142,6 +157,7 @@ export default function App() {
 					setHsPopup={setHsPopup}
 					setUserScores={setUserScores}
 					answerInput={answerInput}
+					handleSignOut={handleSignOut}
 				/>
 			</header>
 			<div className='main'>
@@ -190,6 +206,7 @@ export default function App() {
 					hsPopup={hsPopup}
 					handleGoogleLogin={handleGoogleLogin}
 					setAttempts={setAttempts}
+					setUserScores={setUserScores}
 				/>
 				<div>
 					<HighScoresPopup

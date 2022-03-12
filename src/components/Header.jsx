@@ -1,4 +1,13 @@
-export default function Header({ handleGoogleLogin, user, setUserScores, setHsPopup }) {
+export default function Header({
+	handleGoogleLogin,
+	user,
+	setUserScores,
+	setHsPopup,
+	handleSignOut,
+}) {
+	const handleHighScores = () => {
+		setHsPopup(true)
+	}
 
 	return (
 		<>
@@ -6,9 +15,11 @@ export default function Header({ handleGoogleLogin, user, setUserScores, setHsPo
 			{!user ? (
 				<button onClick={handleGoogleLogin}>Sign in with Google</button>
 			) : (
-				<>
-					<button onClick={()=> setHsPopup(true)}>High Scores</button>
-				</>
+				<div>
+					{/* <p>Welcome, {user.displayName}</p> */}
+					<button onClick={handleHighScores}>Saved Scores</button>
+					<button onClick={handleSignOut}>Sign Out</button>
+				</div>
 			)}
 		</>
 	)

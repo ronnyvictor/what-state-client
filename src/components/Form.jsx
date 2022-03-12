@@ -26,10 +26,9 @@ export default function Form({
 	}
 
 	const handleSubmit = event => {
-		console.log(attempts)
 		event.preventDefault()
 		if (
-			attempts === 0 &&
+			!attempts &&
 			answer.toLowerCase().replace(/\s/g, '') ===
 				activeState.name.toLowerCase().replace(/\s/g, '')
 		) {
@@ -47,7 +46,7 @@ export default function Form({
 
 			setActiveIndex(activeIndex + 1)
 		} else if (
-			attempts === 0 &&
+			!attempts &&
 			answer.toLowerCase() === activeState.abbreviation.toLowerCase()
 		) {
 			setAnswer('')
@@ -64,7 +63,7 @@ export default function Form({
 
 			setActiveIndex(activeIndex + 1)
 		} else if (
-			attempts > 0 &&
+			attempts &&
 			answer.toLowerCase().replace(/\s/g, '') ===
 				activeState.name.toLowerCase().replace(/\s/g, '')
 		) {
@@ -78,7 +77,7 @@ export default function Form({
 					correct: false,
 				},
 			})
-		} else if (answer !== '') {
+		} else if (answer) {
 			setAttempts(attempts + 1)
 			setIsCorrect(false)
 		}
@@ -127,24 +126,23 @@ export default function Form({
 			<div>
 				<button onClick={handleSkip}>Skip</button>
 				<button onClick={handleReset}>Reset</button>
-				<p>
+				{/* <p>
 					<span className='bolder'>Score:</span> {score}
-				</p>
-				<>
-					{isCorrect === true ? (
-						<div className='correct-incorrect'>
-							<img src={checkIcon} alt='check icon' />
-							<p className='correct'>Correct!</p>
-						</div>
-					) : isCorrect === false ? (
-						<div className='correct-incorrect'>
-							<img src={xIcon} alt='x icon' />
-							<p className='incorrect'>Incorrect!</p>
-						</div>
-					) : (
-						<></>
-					)}
-				</>
+				</p> */}
+
+				{isCorrect === true ? (
+					<div className='correct-incorrect'>
+						<img src={checkIcon} alt='check icon' />
+						<p className='correct'>Correct!</p>
+					</div>
+				) : isCorrect === false ? (
+					<div className='correct-incorrect'>
+						<img src={xIcon} alt='x icon' />
+						<p className='incorrect'>Incorrect!</p>
+					</div>
+				) : (
+					<></>
+				)}
 			</div>
 		</div>
 	)

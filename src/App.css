@@ -2,8 +2,8 @@
 
 body {
 	background-color: #b9a37e;
-  height: 100%;
-  margin: 0;
+	margin: 0;
+	overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -68,6 +68,13 @@ header {
 	justify-content: space-between;
 	border-bottom: solid 1px #4e463786;
 	padding: 0 25px 0 25px;
+	/* height: 11vh; */
+	overflow: hidden;
+	align-items: center;
+}
+
+header button {
+	padding-left: 10px;
 }
 
 .main {
@@ -78,9 +85,10 @@ header {
 .sider {
 	display: flex;
 	flex-direction: column;
-	width: 33%;
+	width: 30%;
 	border-right: 1px solid #4e463786;
-  height: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 input {
@@ -133,7 +141,6 @@ button:hover {
 	height: 55%;
 	transform: translate(8px, 30px);
 	overflow: hidden;
-
 }
 
 #USA_Map path {
@@ -184,7 +191,8 @@ button:hover {
 	padding: 0px;
 	border: 1px solid #4e463786;
 	overflow: auto;
-	/* cursor: grab; */
+	-webkit-box-shadow: 5px 4px 20px -3px rgba(78, 70, 55, 0.23);
+	box-shadow: 5px 4px 20px -3px rgba(78, 70, 55, 0.23);
 }
 
 .score-card p {
@@ -200,6 +208,7 @@ button:hover {
 	justify-content: space-between;
 	padding: 15px;
 	border-top: 1px solid #4e463786;
+	overflow: hidden;
 }
 
 .state-results-inner {
@@ -217,28 +226,51 @@ button:hover {
 .container {
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
 }
 
 .form {
 	border-bottom: 1px solid #4e463786;
 	padding: 40px 40px 70px 40px;
 	height: 20vh;
+	overflow: hidden;
 }
 
 .form button {
-	padding-right: 10px;
+	padding-right: 9px;
+	margin-bottom: 15px;
 }
 
 .form form {
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 .state-info {
-  /* display: flex; */
-  /* flex-direction: column; */
+	display: flex;
+	flex-direction: column;
 	padding: 40px 40px 70px 40px;
-  height: 100vh;
-  flex: 0 1 auto;
+	height: 37.25vh;
+	flex: 0 1 auto;
+}
+
+.state-info h2 {
+	padding: 0;
+	margin-bottom: 0px;
+}
+
+.hs-states {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.hs-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	padding: 10px 0 10px 0;
+	border-top: 1px solid #4e463786;
 }
 
 /* #Alaska{

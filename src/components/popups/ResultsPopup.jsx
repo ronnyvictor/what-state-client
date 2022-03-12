@@ -21,7 +21,8 @@ export default function ResultsPopup({
 	setHsPopup,
 	hsPopup,
 	handleGoogleLogin,
-	setAttempts
+	setAttempts,
+	setUserScores,
 }) {
 	const handleTryAgain = () => {
 		setAnswer('')
@@ -45,25 +46,27 @@ export default function ResultsPopup({
 						name: state.name,
 						abbreviation: state.abbreviation,
 						correct: stateProps[state.abbreviation].correct,
-						wikipedia: state.wikipedia,
 					}
 			  })
 			: null,
 	}
 
 	const handleSend = () => {
-		fetch('http://localhost:3003/scores', {
+		setHsPopup(true)
+		fetch('http://what-state-rv.uk.r.appspot.com/scores', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(result),
-		})
-		.then(setHsPopup(true))
+		}).then(
+			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
+				.then(res => res.json())
+				.then(data => setUserScores(data))
+				.catch(console.error)
+		)
 	}
-
-	// console.log(result)
 
 	return (
 		<>
@@ -71,11 +74,12 @@ export default function ResultsPopup({
 				<div className='box'>
 					<div className='score-card'>
 						<p>You got {score} out of 50 states correct!</p>
+						<h2>{score * 2}%</h2>
 						<button onClick={handleTryAgain}>Try Again</button>
 						{!user ? (
 							<button onClick={handleGoogleLogin}>Sign in</button>
 						) : (
-							<button onClick={handleSend}>Post Score</button>
+							<button onClick={handleSend}>Save Your Score</button>
 						)}
 
 						<div className='state-results-outer'>
