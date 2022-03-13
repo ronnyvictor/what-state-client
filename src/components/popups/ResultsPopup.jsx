@@ -1,3 +1,5 @@
+import Draggable from 'react-draggable'
+
 import checkIcon from '../../assets/check-icon.svg'
 import xIcon from '../../assets/x-icon.svg'
 
@@ -7,7 +9,6 @@ export default function ResultsPopup({
 	setStates,
 	states,
 	setActiveState,
-	activeState,
 	setStateProps,
 	stateProps,
 	setActiveIndex,
@@ -16,13 +17,13 @@ export default function ResultsPopup({
 	setAnswer,
 	setPreviousState,
 	setIsCorrect,
-	previousState,
 	user,
-	setHsPopup,
-	hsPopup,
 	handleGoogleLogin,
 	setAttempts,
-	setUserScores,
+	setLoading,
+	resultPopup,
+	setResultPopup,
+	hsPopup,
 }) {
 	const handleTryAgain = () => {
 		setAnswer('')
@@ -31,9 +32,9 @@ export default function ResultsPopup({
 		setActiveIndex(0)
 		setActiveState(states[0])
 		setStateProps(initialColor)
-		setPreviousState()
 		setIsCorrect()
 		setAttempts(0)
+		setResultPopup(false)
 		answerInput.current.focus()
 	}
 
@@ -52,7 +53,6 @@ export default function ResultsPopup({
 	}
 
 	const handleSend = () => {
-		setHsPopup(true)
 		fetch('http://what-state-rv.uk.r.appspot.com/scores', {
 			method: 'POST',
 			headers: {
@@ -60,57 +60,66 @@ export default function ResultsPopup({
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(result),
-		}).then(
-			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
-				.then(res => res.json())
-				.then(data => setUserScores(data))
-				.catch(console.error)
-		)
+		})
+			.then(() => setLoading(true))
+			.catch(console.error)
 	}
 
 	return (
 		<>
-			{!activeState && previousState && !hsPopup ? (
+			{resultPopup && !hsPopup ? (
 				<div className='box'>
-					<div className='score-card'>
-						<p>You got {score} out of 50 states correct!</p>
-						<h2>{score * 2}%</h2>
-						<button onClick={handleTryAgain}>Try Again</button>
-						{!user ? (
-							<button onClick={handleGoogleLogin}>Sign in</button>
-						) : (
-							<button onClick={handleSend}>Save Your Score</button>
-						)}
-
-						<div className='state-results-outer'>
-							{states ? (
-								states.map(state => {
-									return (
-										<div className='state-results-inner' key={state.id}>
-											<a
-												href={state.wikipedia}
-												target='_blank'
-												rel='noreferrer'
-											>
-												{state.name}
-											</a>
-											{stateProps[state.abbreviation].correct ? (
-												<div className='correct-incorrect'>
-													<img src={checkIcon} alt='check icon' />
-												</div>
-											) : (
-												<div className='correct-incorrect'>
-													<img src={xIcon} alt='x icon' />
-												</div>
-											)}
-										</div>
-									)
-								})
+					<Draggable handle='.handle'>
+						<section className='score-card'>
+							<div className='handle'>
+								<button
+									onClick={() => {
+										setResultPopup(false)
+									}}
+								>
+									X
+								</button>
+							</div>
+							<p>You got {score} out of 50 states correct!</p>
+							<h2>{score * 2}%</h2>
+							<button onClick={handleTryAgain}>Try Again</button>
+							{!user ? (
+								<button onClick={handleGoogleLogin}>
+									Sign In to Save Your Score
+								</button>
 							) : (
-								<></>
+								<button onClick={handleSend}>Save Your Score</button>
 							)}
-						</div>
-					</div>
+							<div className='state-results-outer'>
+								{states ? (
+									states.map(state => {
+										return (
+											<div className='state-results-inner' key={state.id}>
+												<a
+													href={state.wikipedia}
+													target='_blank'
+													rel='noreferrer'
+												>
+													{state.name}
+												</a>
+												{stateProps[state.abbreviation].correct ? (
+													<div className='correct-incorrect'>
+														<img src={checkIcon} alt='check icon' />
+													</div>
+												) : (
+													<div className='correct-incorrect'>
+														<img src={xIcon} alt='x icon' />
+													</div>
+												)}
+											</div>
+										)
+									})
+								) : (
+									<></>
+								)}
+							</div>
+						</section>
+					</Draggable>
 				</div>
 			) : (
 				<></>

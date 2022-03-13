@@ -5,7 +5,7 @@ export default function StateInfo({ previousState }) {
 				<>
 					<h2>{previousState.name}</h2>
 					<p>
-						<span className='bolder'>Capitol: </span>
+						<span className='bolder'>Capital: </span>
 						{previousState.capitol}
 					</p>
 					<p>

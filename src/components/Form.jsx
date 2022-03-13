@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils'
 import checkIcon from '../assets/check-icon.svg'
 import xIcon from '../assets/x-icon.svg'
 
@@ -20,6 +21,7 @@ export default function Form({
 	initial,
 	states,
 	setActiveState,
+	setResultPopup,
 }) {
 	const onChange = event => {
 		setAnswer(event.target.value)
@@ -77,7 +79,7 @@ export default function Form({
 					correct: false,
 				},
 			})
-		} else if (answer) {
+		} else if (answer && activeIndex < 50) {
 			setAttempts(attempts + 1)
 			setIsCorrect(false)
 		}
@@ -124,11 +126,23 @@ export default function Form({
 				/>
 			</form>
 			<div>
-				<button onClick={handleSkip}>Skip</button>
-				<button onClick={handleReset}>Reset</button>
-				{/* <p>
-					<span className='bolder'>Score:</span> {score}
-				</p> */}
+				{activeIndex < 50 ? (
+					<>
+						<button onClick={handleSkip}>Skip</button>
+						<button onClick={handleReset}>Reset</button>
+					</>
+				) : (
+					<>
+						<button onClick={handleReset}>Try Again</button>
+						<button
+							onClick={() => {
+								setResultPopup(true)
+							}}
+						>
+							View Results
+						</button>
+					</>
+				)}
 
 				{isCorrect === true ? (
 					<div className='correct-incorrect'>

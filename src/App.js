@@ -16,6 +16,7 @@ import StateInfo from './components/StateInfo'
 import Header from './components/Header'
 import ResultsPopup from './components/popups/ResultsPopup'
 import HighScoresPopup from './components/popups/HighScoresPopup'
+import Loading from './components/popups/Loading'
 
 const initial = {
 	AL: { color: '#d1be9d', correct: null },
@@ -71,6 +72,9 @@ const initial = {
 }
 
 const provider = new GoogleAuthProvider()
+provider.setCustomParameters({
+	prompt: 'select_account',
+})
 const auth = getAuth(app)
 
 export default function App() {
@@ -87,7 +91,9 @@ export default function App() {
 	const [stateProps, setStateProps] = useState(initial)
 	const [user, setUser] = useState()
 	const [userScores, setUserScores] = useState()
-	const [hsPopup, setHsPopup] = useState()
+	const [hsPopup, setHsPopup] = useState(false)
+	const [resultPopup, setResultPopup] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		fetch('http://what-state-rv.uk.r.appspot.com/states')
@@ -148,6 +154,25 @@ export default function App() {
 		}
 	}, [user])
 
+	useEffect(() => {
+		if (loading) {
+			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
+				.then(res => res.json())
+				.then(data => setUserScores(data))
+				.then(() => {
+					setLoading(false)
+					setHsPopup(true)
+				})
+				.catch(console.error)
+		}
+	}, [loading, user])
+
+	useEffect(() => {
+		if (activeIndex === 50) {
+			setResultPopup(true)
+		}
+	}, [activeIndex])
+
 	return (
 		<div>
 			<header>
@@ -155,7 +180,6 @@ export default function App() {
 					handleGoogleLogin={handleGoogleLogin}
 					user={user}
 					setHsPopup={setHsPopup}
-					setUserScores={setUserScores}
 					answerInput={answerInput}
 					handleSignOut={handleSignOut}
 				/>
@@ -181,6 +205,7 @@ export default function App() {
 						states={states}
 						initial={initial}
 						setActiveState={setActiveState}
+						setResultPopup={setResultPopup}
 					/>
 					<StateInfo previousState={previousState} />
 				</div>
@@ -191,7 +216,6 @@ export default function App() {
 					score={score}
 					setStates={setStates}
 					states={states}
-					activeState={activeState}
 					setActiveState={setActiveState}
 					setStateProps={setStateProps}
 					stateProps={stateProps}
@@ -199,24 +223,24 @@ export default function App() {
 					initialColor={initial}
 					answerInput={answerInput}
 					setPreviousState={setPreviousState}
-					previousState={previousState}
 					setIsCorrect={setIsCorrect}
 					user={user}
-					setHsPopup={setHsPopup}
-					hsPopup={hsPopup}
 					handleGoogleLogin={handleGoogleLogin}
 					setAttempts={setAttempts}
-					setUserScores={setUserScores}
+					setLoading={setLoading}
+					resultPopup={resultPopup}
+					setResultPopup={setResultPopup}
+					hsPopup={hsPopup}
 				/>
 				<div>
 					<HighScoresPopup
 						userScores={userScores}
-						user={user}
-						setUserScores={setUserScores}
 						hsPopup={hsPopup}
 						setHsPopup={setHsPopup}
 						answerInput={answerInput}
+						setLoading={setLoading}
 					/>
+					<Loading loading={loading} />
 				</div>
 			</div>
 		</div>
