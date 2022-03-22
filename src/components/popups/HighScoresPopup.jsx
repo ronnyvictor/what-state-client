@@ -28,9 +28,19 @@ export default function HighScoresPopup({
 		})
 	}
 
+	// const allRecipes = [{}, {}]
+	// const someRecipes = [{}]
+
+	// useEffect(() => {
+	// 	setSelectedRecipe(someRecipes)
+
+	// }, [])
+
+	//Your first use effect (the one we commented out lol) needs to set the seleced recipe
+
 	const handleDeleteTrue = () => {
 		if (popup.show && popup.id) {
-			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${popup.id}`, {
+			fetch(`https://what-state-rv.uk.r.appspot.com/scores/${popup.id}`, {
 				method: 'PATCH',
 			})
 				.then(() => {

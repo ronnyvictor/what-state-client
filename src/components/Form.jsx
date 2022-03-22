@@ -1,6 +1,8 @@
-import { act } from 'react-dom/test-utils'
+import { useState } from 'react'
+
 import checkIcon from '../assets/check-icon.svg'
 import xIcon from '../assets/x-icon.svg'
+import ResetPopup from './popups/ResetPopup'
 
 export default function Form({
 	setAnswer,
@@ -23,6 +25,8 @@ export default function Form({
 	setActiveState,
 	setResultPopup,
 }) {
+	const [popup, setPopup] = useState(false)
+
 	const onChange = event => {
 		setAnswer(event.target.value)
 	}
@@ -42,6 +46,7 @@ export default function Form({
 				...stateProps,
 				[activeState.abbreviation]: {
 					color: activeState.colors.correct,
+					shadow: 'transparent',
 					correct: true,
 				},
 			})
@@ -59,6 +64,7 @@ export default function Form({
 				...stateProps,
 				[activeState.abbreviation]: {
 					color: activeState.colors.correct,
+					shadow: 'transparent',
 					correct: true,
 				},
 			})
@@ -76,6 +82,7 @@ export default function Form({
 				...stateProps,
 				[activeState.abbreviation]: {
 					color: activeState.colors.incorrect,
+					shadow: 'transparent',
 					correct: false,
 				},
 			})
@@ -93,6 +100,7 @@ export default function Form({
 			...stateProps,
 			[activeState.abbreviation]: {
 				color: activeState.colors.incorrect,
+				shadow: 'transparent',
 				correct: false,
 			},
 		})
@@ -129,7 +137,7 @@ export default function Form({
 				{activeIndex < 50 ? (
 					<>
 						<button onClick={handleSkip}>Skip</button>
-						<button onClick={handleReset}>Reset</button>
+						<button onClick={() => setPopup(true)}>Reset</button>
 					</>
 				) : (
 					<>
@@ -158,6 +166,11 @@ export default function Form({
 					<></>
 				)}
 			</div>
+			{popup ? (
+				<ResetPopup handleReset={handleReset} setPopup={setPopup} />
+			) : (
+				<></>
+			)}
 		</div>
 	)
 }

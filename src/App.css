@@ -6,10 +6,10 @@ body {
 	overflow: hidden;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
 	width: 10px;
 	height: 16px;
-}
+} */
 
 ::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.2);
@@ -28,6 +28,7 @@ h1 {
 	font-family: sculpin, sans-serif;
 	font-weight: 900;
 	font-style: normal;
+	margin: 0;
 }
 
 h2 {
@@ -67,7 +68,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	border-bottom: solid 1px #4e463786;
-	padding: 0 25px 0 25px;
+	padding: 20px 25px 20px 25px;
 	/* height: 11vh; */
 	overflow: hidden;
 	align-items: center;
@@ -141,10 +142,27 @@ button:hover {
 	height: 55%;
 	transform: translate(8px, 30px);
 	overflow: hidden;
+	/* transition: 0.5s; */
 }
 
 #USA_Map path {
 	transition: 0.5s;
+	/* transition-timing-function: cubic-bezier(0.29, 2.88, 0.83, -1.09); */
+}
+
+/* #USA_Map use {
+	animation: blinker 1s linear;
+	transition: 1s;
+} */
+
+/* #USA_Map path::before {
+	animation: blinker 1s linear infinite;
+} */
+
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
 }
 
 .correct {
@@ -205,10 +223,11 @@ button:hover {
 .state-results-outer {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 15px;
+	justify-content: space-evenly;
 	border-top: 1px solid #4e463786;
 	overflow: hidden;
+}
+.state-results-inner a {
 }
 
 .state-results-inner {
@@ -238,7 +257,7 @@ button:hover {
 
 .form button {
 	padding-right: 9px;
-	margin-bottom: 15px;
+	margin: 0px 0px 15px 0px;
 }
 
 .form form {
@@ -269,7 +288,7 @@ button:hover {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: baseline;
-	padding: 10px 0 10px 0;
+	padding: 10px 5px 10px 5px;
 	border-top: 1px solid #4e463786;
 }
 
@@ -277,6 +296,7 @@ button:hover {
 	display: flex;
 	padding: 5px 10px 5px 5px;
 	cursor: move;
+	top: 0px;
 }
 
 /* #Alaska{
@@ -369,4 +389,40 @@ button:hover {
 	100% {
 		opacity: 0;
 	}
+}
+
+.final-result {
+	border-top: 1px solid #4e463786;
+	padding: 10px;
+	padding-bottom: 0px;
+	display: flex;
+	flex-direction: column;
+}
+
+.final-result p {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.percent {
+	font-size: 50px !important;
+	margin: 15px 15px 10px 15px !important;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+}
+
+.buttons button {
+	padding: 10px;
+}
+
+.second-popup {
+	border-top: 1px solid #4e463786;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 5px 10px 5px;
+	text-align: center;
 }

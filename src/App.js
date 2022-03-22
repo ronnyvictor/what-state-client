@@ -11,6 +11,7 @@ import { app } from './ConnectAuth'
 
 import './App.css'
 import USAMap from './components/USAMap'
+import USAMapcopy from './components/USAMapcopy'
 import Form from './components/Form'
 import StateInfo from './components/StateInfo'
 import Header from './components/Header'
@@ -19,56 +20,56 @@ import HighScoresPopup from './components/popups/HighScoresPopup'
 import Loading from './components/popups/Loading'
 
 const initial = {
-	AL: { color: '#d1be9d', correct: null },
-	AK: { color: '#d1be9d', correct: null },
-	AZ: { color: '#d1be9d', correct: null },
-	AR: { color: '#d1be9d', correct: null },
-	CA: { color: '#d1be9d', correct: null },
-	CO: { color: '#d1be9d', correct: null },
-	CT: { color: '#d1be9d', correct: null },
-	DE: { color: '#d1be9d', correct: null },
-	FL: { color: '#d1be9d', correct: null },
-	GA: { color: '#d1be9d', correct: null },
-	HI: { color: '#d1be9d', correct: null },
-	ID: { color: '#d1be9d', correct: null },
-	IL: { color: '#d1be9d', correct: null },
-	IN: { color: '#d1be9d', correct: null },
-	IA: { color: '#d1be9d', correct: null },
-	KS: { color: '#d1be9d', correct: null },
-	KY: { color: '#d1be9d', correct: null },
-	LA: { color: '#d1be9d', correct: null },
-	ME: { color: '#d1be9d', correct: null },
-	MD: { color: '#d1be9d', correct: null },
-	MA: { color: '#d1be9d', correct: null },
-	MI: { color: '#d1be9d', correct: null },
-	MN: { color: '#d1be9d', correct: null },
-	MS: { color: '#d1be9d', correct: null },
-	MO: { color: '#d1be9d', correct: null },
-	MT: { color: '#d1be9d', correct: null },
-	NE: { color: '#d1be9d', correct: null },
-	NV: { color: '#d1be9d', correct: null },
-	NH: { color: '#d1be9d', correct: null },
-	NJ: { color: '#d1be9d', correct: null },
-	NM: { color: '#d1be9d', correct: null },
-	NY: { color: '#d1be9d', correct: null },
-	NC: { color: '#d1be9d', correct: null },
-	ND: { color: '#d1be9d', correct: null },
-	OH: { color: '#d1be9d', correct: null },
-	OK: { color: '#d1be9d', correct: null },
-	OR: { color: '#d1be9d', correct: null },
-	PA: { color: '#d1be9d', correct: null },
-	RI: { color: '#d1be9d', correct: null },
-	SC: { color: '#d1be9d', correct: null },
-	SD: { color: '#d1be9d', correct: null },
-	TN: { color: '#d1be9d', correct: null },
-	TX: { color: '#d1be9d', correct: null },
-	UT: { color: '#d1be9d', correct: null },
-	VT: { color: '#d1be9d', correct: null },
-	VA: { color: '#d1be9d', correct: null },
-	WA: { color: '#d1be9d', correct: null },
-	WV: { color: '#d1be9d', correct: null },
-	WI: { color: '#d1be9d', correct: null },
-	WY: { color: '#d1be9d', correct: null },
+	AL: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	AK: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	AZ: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	AR: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	CA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	CO: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	CT: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	DE: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	FL: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	GA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	HI: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	ID: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	IL: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	IN: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	IA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	KS: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	KY: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	LA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	ME: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MD: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MI: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MN: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MS: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MO: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	MT: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NE: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NV: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NH: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NJ: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NM: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NY: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	NC: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	ND: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	OH: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	OK: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	OR: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	PA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	RI: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	SC: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	SD: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	TN: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	TX: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	UT: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	VT: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	VA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	WA: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	WV: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	WI: { color: '#d1be9d', shadow: 'transparent', correct: null },
+	WY: { color: '#d1be9d', shadow: 'transparent', correct: null },
 }
 
 const provider = new GoogleAuthProvider()
@@ -96,7 +97,7 @@ export default function App() {
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
-		fetch('http://what-state-rv.uk.r.appspot.com/states')
+		fetch('https://what-state-rv.uk.r.appspot.com/states')
 			.then(res => res.json())
 			.then(data => {
 				setStates(data.sort(() => Math.random() - 0.5))
@@ -118,6 +119,7 @@ export default function App() {
 				...stateProps,
 				[activeState.abbreviation]: {
 					color: activeState.colors.active,
+					shadow: activeState.colors.shadow,
 					correct: null,
 				},
 			})
@@ -141,13 +143,12 @@ export default function App() {
 	useEffect(() => {
 		onAuthStateChanged(auth, u => {
 			setUser(u)
-			console.log(u)
 		})
-	}, [auth])
+	}, [user])
 
 	useEffect(() => {
 		if (user) {
-			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
+			fetch(`https://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
 				.then(res => res.json())
 				.then(data => setUserScores(data))
 				.catch(console.error)
@@ -156,7 +157,7 @@ export default function App() {
 
 	useEffect(() => {
 		if (loading) {
-			fetch(`http://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
+			fetch(`https://what-state-rv.uk.r.appspot.com/scores/${user.uid}`)
 				.then(res => res.json())
 				.then(data => setUserScores(data))
 				.then(() => {
@@ -210,6 +211,7 @@ export default function App() {
 					<StateInfo previousState={previousState} />
 				</div>
 				<USAMap stateProps={stateProps} />
+				{/* <USAMapcopy stateProps={stateProps} activeState={activeState} /> */}
 				<ResultsPopup
 					setAnswer={setAnswer}
 					setScore={setScore}

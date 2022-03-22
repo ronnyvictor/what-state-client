@@ -39,7 +39,7 @@ export default function ResultsPopup({
 	}
 
 	const result = {
-		score: score,
+		score,
 		userId: user ? user.uid : null,
 		states: states
 			? states.map(state => {
@@ -53,7 +53,7 @@ export default function ResultsPopup({
 	}
 
 	const handleSend = () => {
-		fetch('http://what-state-rv.uk.r.appspot.com/scores', {
+		fetch('https://what-state-rv.uk.r.appspot.com/scores', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -61,6 +61,7 @@ export default function ResultsPopup({
 			},
 			body: JSON.stringify(result),
 		})
+			.then(res => res.json())
 			.then(() => setLoading(true))
 			.catch(console.error)
 	}
@@ -80,16 +81,25 @@ export default function ResultsPopup({
 									X
 								</button>
 							</div>
-							<p>You got {score} out of 50 states correct!</p>
-							<h2>{score * 2}%</h2>
-							<button onClick={handleTryAgain}>Try Again</button>
-							{!user ? (
-								<button onClick={handleGoogleLogin}>
-									Sign In to Save Your Score
-								</button>
-							) : (
-								<button onClick={handleSend}>Save Your Score</button>
-							)}
+							<div className='final-result'>
+								<p>You got {score} out of 50 states correct!</p>
+								{score === 50 ? (
+									<p className='correct'>You're a true geography whiz!</p>
+								) : (
+									<></>
+								)}
+								<p className='percent'>{score * 2}%</p>
+								<div className='buttons'>
+									<button onClick={handleTryAgain}>Try Again</button>
+									{!user ? (
+										<button onClick={handleGoogleLogin}>
+											Sign In to Save Your Score
+										</button>
+									) : (
+										<button onClick={handleSend}>Save Your Score</button>
+									)}
+								</div>
+							</div>
 							<div className='state-results-outer'>
 								{states ? (
 									states.map(state => {
